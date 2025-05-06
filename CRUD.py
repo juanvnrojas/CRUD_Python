@@ -227,11 +227,30 @@ def listar_vendas(vendas, jogos, clientes):
                     break
 
 
-def main():
-    clientes = []
-    jogos = []
-    vendas = []
+import json
 
+
+def salvar_dados(clientes, jogos, vendas, filename="dados.json"):
+    with open(filename, "w") as file:
+        data = {
+            "clientes": clientes,
+            "jogos": jogos,
+            "vendas": vendas,
+        }
+        json.dump(data, file)
+
+
+def carregar_dados(filename="dados.json"):
+    try:
+        with open(filename, "r") as file:
+            data = json.load(file)
+            return data["clientes"], data["jogos"], data["vendas"]
+    except FileNotFoundError:
+        return [], [], []
+
+
+def main():
+    clientes, jogos, vendas = carregar_dados()
     while True:
         menu_principal()
         opcao = input("Digite a opção desejada: ")
@@ -284,6 +303,7 @@ def main():
                 else:
                     print("Opção inválida.")
         elif opcao == "4":
+            salvar_dados(clientes, jogos, vendas)
             print("Saindo...")
             break
         else:
