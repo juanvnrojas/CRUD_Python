@@ -47,6 +47,9 @@ def menu_venda():
 
 def cadastrar_cliente(clientes):
     identificador = input("Digite o ID do cliente: ")
+    if any(cliente[0] == identificador for cliente in clientes):
+        print("ID já cadastrado. Tente novamente.")
+        return
     nome = input("Digite o nome do cliente: ")
     while True:
         try:
@@ -121,6 +124,9 @@ def excluir_cliente(clientes):
 
 def cadastrar_jogo(jogos):
     identificador = input("Digite o ID do jogo: ")
+    if any(jogo[0] == identificador for jogo in jogos):
+        print("ID já cadastrado. Tente novamente.")
+        return
     nome = input("Digite o nome do jogo: ")
     preco = input("Digite o preço do jogo: ")
     preco = preco.replace(",", ".")
@@ -135,7 +141,7 @@ def listar_jogos(jogos):
     else:
         for jogo in jogos:
             identificador, nome, preco = jogo
-            print(f"ID: {identificador}, Nome: {nome}, Preço: {preco}")
+            print(f"ID: {identificador}, Nome: {nome}, Preço: R${preco}")
 
 
 def buscar_jogo(jogos):
@@ -143,7 +149,7 @@ def buscar_jogo(jogos):
     for jogo in jogos:
         identificador, nome, preco = jogo
         if identificador == id_desejado:
-            print(f"ID: {identificador}, Nome: {nome}, Preço: {preco}")
+            print(f"ID: {identificador}, Nome: {nome}, Preço: R${preco}")
             break
     else:
         print("Jogo não encontrado.")
@@ -221,7 +227,7 @@ def listar_vendas(vendas, jogos, clientes):
                         identificador_cliente, nome_cliente, idade_cliente = cliente
                         if identificador_cliente == id_cliente:
                             print(
-                                f"Jogo: {nome_jogo}, Cliente: {nome_cliente}, Preço: {preco_jogo}"
+                                f"Jogo: {nome_jogo}, Cliente: {nome_cliente}, Preço: R${preco_jogo}"
                             )
                             break
                     break
